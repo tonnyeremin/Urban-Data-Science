@@ -4,13 +4,22 @@
 
 ### 1.1 Background
 
-One of the a distinguishing feature of modern, "smart" city - pedestrian experience. Walking is healthy, ecology friendly and cheap way to navigate across neighborhoods.  By increasing pedestrian accessibility of the city we сan lighten public transport network, decrease traffic and finally build a human friendly city environment. 
+Cities are complex systems which provide interesting modelling challenges. In modern era urbanist think a lot about how to improve city-life experience: to make cities more comfortable, safe and environment friendly places. One of the assumption is the we have to decrease the usage of public and private transport and focus mainly on the pedestrian and bike accessibility of cities.
 
-### 1.2 Problem
+### 1.2 Problem. How we can value current pedestrian accessibility of the particular city. 
 
-In modern era urbanists are focusing on increasing of walkability of the cities.  With the usage of data science methods can they give recommendations to municipal authorities what kind of improvements in city planning are needed  for betterment neighborhoods in terms of pedestrian experience. 
+To achieve our goal "Make cities comfortable for  walking" First off all, we have to decide, what we mean under pedestrian accessibility. As an example we took a middle age couple with two or more children, living in the city of Prague. We have to research their daily needs and decide  witch neighbor of  Prague is most suitable for them. Of course I understand that needs can vary and I have to count all possible points of interest (POI) to cover all humans daily needs.  But for the first step I decided to research this types of POI:
+
+- Schools
+- Kinder gardens
+- Grocery stores
+- Libraries and cultural centers
+
+Basing on this research we can perform clustering of all Prague`s neighborhoods and build a model of the Prague pedestrian accessibility.
 
 ### 1.3 Interest
+
+This research can is interested  for both public and private sector. The public sector might care about neighborhood development , the values to comfortability derived from amending build new school, kinder garden or opening a  cultural center. 
 
 
 
