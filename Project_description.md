@@ -4,7 +4,20 @@
 
 ### 1.1 Background
 
-Cities are complex systems which provide interesting modelling challenges. In modern era urbanist think a lot about how to improve city-life experience: to make cities more comfortable, safe and environment friendly places. One of the assumption is the we have to decrease the usage of public and private transport and focus mainly on the pedestrian and bike accessibility of cities.
+Walking is the most reliable, easy and healthy way to travel. Yet today the number of children walking to school is in decline. This has damaging consequences for our children’s health, safety and wellbeing.
+Over 70 per cent of today’s parents walked to school when they were children but less than half of children walk to school today. Meanwhile, the number of children being driven to school is growing, with an increasingly negative impact on congestion, health and communities [1].
+
+Walking is an easy, free and healthy way for children to get to school or other activities such as libraries, cultural and hobby centers, playgrounds e. t. c. Walking provides a lot of benefits for every one:
+
+- It helps to achieve daily  physical activity target for children
+- Physical active children are more alert and ready to learn
+- Through improved physical and mental health for
+  children, parents and carers,
+- Parents could save money if children walked rather then going by car
+- Walking boosts local business
+- Healthy children lower health spent for local authorities
+- The school run generates two million tones of CO2 every year.
+- Converting car journeys to walking improves local air quality and contributes globally to a reduction in carbon emissions.
 
 ### 1.2 Problem. How we can value current pedestrian accessibility of the particular city. 
 
@@ -47,3 +60,4 @@ This research can is interested  for both public and private sector. The public 
 
 ## 7. References
 
+1.  https://www.livingstreets.org.uk/  How to get more children walking to school. A best practice guide by Living Streets
