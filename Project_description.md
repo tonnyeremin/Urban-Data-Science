@@ -12,23 +12,16 @@ Walking is an easy, free and healthy way for children to get to school or other 
 - It helps to achieve daily  physical activity target for children
 - Physical active children are more alert and ready to learn
 - Through improved physical and mental health for
-  children, parents and carers,
+  children and parents 
 - Parents could save money if children walked rather then going by car
 - Walking boosts local business
-- Healthy children lower health spent for local authorities
+- Healthy children means lower health spent for local authorities
 - The school run generates two million tones of CO2 every year.
 - Converting car journeys to walking improves local air quality and contributes globally to a reduction in carbon emissions.
 
-### 1.2 Problem. How we can value current pedestrian accessibility of the particular city. 
+### 1.2 How we can value current pedestrian accessibility of the particular city?
 
-To achieve our goal "Make cities comfortable for  walking" First off all, we have to decide, what we mean under pedestrian accessibility. As an example we took a middle age couple with two or more children, living in the city of Prague. We have to research their daily needs and decide  witch neighbor of  Prague is most suitable for them. Of course I understand that needs can vary and I have to count all possible points of interest (POI) to cover all humans daily needs.  But for the first step I decided to research this types of POI:
-
-- Schools
-- Kinder gardens
-- Grocery stores
-- Libraries and cultural centers
-
-Basing on this research we can perform clustering of all Prague`s neighborhoods and build a model of the Prague pedestrian accessibility.
+To value pedestrian accessibility with have to decide what common points of interest (POI) have children in their weakly routine. From every place in the particular city we have to calculate five shortest routes to this POIs.  We have to decide what is suitable walking distance for  selected age group. We have to compare all found distances with this reference distance. POis with distances which is higher have to be decided as less pedestrian accessible as POIs which is lower then reference 
 
 ### 1.3 Interest
 
