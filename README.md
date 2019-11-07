@@ -29,7 +29,7 @@ This research can is interested  for both public and private sector. The public 
 
 ## 3. Study Area and Data
 
-![Prague]()
+![Prague](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Walking_access_Prague.png?raw=true)
 
 
 
