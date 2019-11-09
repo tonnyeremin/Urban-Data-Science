@@ -31,7 +31,7 @@ Prague is the largest city of Czech Republic with a total area of  298  km2 and 
 
 For our study we use such types of data as population and geo data of the selected POI. All data was acquired from open data sources: for population we use data from Czech Statistical Office, for educational facilities -  registry of The Ministry of Education, Youth and Sports of Czech Republic. Other datasets was acquired form  Prague`s open data portal and other web resources. 
 
-The step of cleaning data includes a few steps: (1) Joining  by the name of the districts the population dataset and geo-data of the municipal districts borders. (2) Thought ArcGis API retrieving  geographical coordinates of POIs. As a result we have to datasets: 
+The step of cleaning data included a few steps: (1) Joining  by the name of the districts the population dataset and geo-data of the municipal districts borders. (2) Thought ArcGis API retrieving  geographical coordinates of POIs. As a result we have to datasets:  Prague population by districts with 57 rows and POIs dataset with 1623 rows.
 
 ***Prague population by districts***
 
@@ -51,9 +51,32 @@ The step of cleaning data includes a few steps: (1) Joining  by the name of the 
 | 26   | praha 1       | school | 50.090834 | 14.428853 |
 | 30   | praha 4       | school | 50.001684 | 14.413886 |
 
+Walking network data obtained from Open Street Map (OSM)The OSM data contains Prague road networks and surrounding connected roads, which are line geometries characterized by length. These can be used to construct a routable topology graph (directed, weighted and connected), which consists of nodes and edges, so that any well-known route search algorithm can be applied [3]. Pedestrian network for Prague contains 140 822 nodes and 204 575 links
+
 
 
 ## 4. Methodology
+
+The spatial frame of this study necessitates the use of point-based accessibility measures. The commonly used spatial units are administrative division and grid cell. As study area ranges from a city to a country, even the whole world, the type, shape and size of spatial unit differ in research purposes and there is no consensus over them.  In our study with use a bounding box of Prague as spatial frame. We can`t use smaller frames such as administrative divisions for our research because we have to deal with the boundary conditions. If children leave in own district and nearest POI is located in another. In this case very often parents of course decide to go to this nearest POI.
+
+In first step we converted OSM street network to graph objects.  We use Pandana framework for downloading and cleaning OSM road data. Under cleaning we mean removing  points that don’t represent actual intersections (hence are not nodes in the graph theory sense). 
+
+![Pedestrian Network]()
+
+As the second step is to located POIs form previous step to network graph and calculate accessibility  matrix. Under accessibility  matrix we mean an array of distances to top 3 POIs  from the array of predefined POI acquired at data acquisition step.  With this matrix we can calculate average walking distance for every type of POIs: school, library, other children`s facilities. We get  140877 edges in total
+
+|     id |   1_school |   2_school |   3_school | 1_educatioanal center | 2_educatioanal center | 3_educatioanal center |  1_library |   2_library |   3_library |    1_sport |    2_sport |    3_sport |      1 |      2 |      3 |
+| -----: | ---------: | ---------: | ---------: | --------------------: | --------------------: | --------------------: | ---------: | ----------: | ----------: | ---------: | ---------: | ---------: | -----: | -----: | -----: |
+|        |            |            |            |                       |                       |                       |            |             |             |            |            |            |        |        |        |
+| 172508 | 218.384003 | 452.865997 | 502.253998 |            124.689003 |           1545.234985 |           1629.285034 | 359.911011 |  653.177002 |  905.504028 |  20.875999 |  20.875999 | 105.547997 | 3000.0 | 3000.0 | 3000.0 |
+| 172510 |  42.796001 | 326.665985 | 347.582001 |             50.898998 |           1477.159058 |           1512.265015 | 211.785004 |  828.643005 |  973.174011 | 154.315994 | 194.106003 | 194.106003 | 3000.0 | 3000.0 | 3000.0 |
+| 172512 | 226.128006 | 290.959991 | 300.862000 |            421.157990 |           1142.005981 |           1463.151978 | 454.751007 | 1161.907959 | 1195.189941 |  80.668999 | 152.044998 | 181.822998 | 3000.0 | 3000.0 | 3000.0 |
+| 172513 | 353.912994 | 393.170990 | 442.434998 |            627.351990 |            935.812012 |           1372.583008 | 621.794006 | 1335.552002 | 1347.269043 | 259.713013 | 300.928009 | 326.744995 | 3000.0 | 3000.0 | 3000.0 |
+| 172514 | 270.234985 | 443.700989 | 492.393005 |            711.030029 |            852.133972 |           1288.905029 | 672.323975 | 1385.510010 | 1430.947021 | 343.390991 | 377.274994 | 384.605988 | 3000.0 | 3000.0 | 3000.0 |
+
+![Average distances]()
+
+We will use K-Means clustering algorithm.  This is a method of vector quantization, originally from signal processing, that is popular for cluster analysis in data mining. k-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells. k-Means minimizes within-cluster variances (squared Euclidean distances). Do determine the optimal number of clusters we use and Elbow method
 
 
 
@@ -69,6 +92,7 @@ The step of cleaning data includes a few steps: (1) Joining  by the name of the 
 
 1.  Living Streets (The Pedestrians’ Association)   [A LIVING STREETS REPORT](https://www.livingstreets.org.uk/media/3618/ls_school_run_report_web.pdf)
 2. [Criterion distances and correlates of active transportation to school in Belgian older adolescents.](https://ijbnpa.biomedcentral.com/articles/10.1186/1479-5868-7-87) Delfien Van Dyck, Ilse De Bourdeaudhuij, Greet Cardon & Benedicte Deforche 
+3. Naumann, S., & Kovalyov, M. Y. (2017). Pedestrian route search based on OpenStreetMap. In *Intelligent Transport Systems and Travel Behaviour (pp. 87-96)*. Cham: Springer.
 
 
 
