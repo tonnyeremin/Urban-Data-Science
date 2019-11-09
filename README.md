@@ -78,11 +78,31 @@ As the second step is to located POIs form previous step to network graph and ca
 
 We will use K-Means clustering algorithm.  This is a method of vector quantization, originally from signal processing, that is popular for cluster analysis in data mining. k-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells. k-Means minimizes within-cluster variances (squared Euclidean distances). Do determine the optimal number of clusters we use and Elbow method
 
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Elbow%20(2).png?raw=true)
+
 
 
 ## 5. Results
 
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_14.224437012000067_49.94190007000003_14.706787572000053_50.17742967400005.png?raw=true)
 
+|         |  school_avg | educatioanal center_avg | library_avg |   sport_avg | playground_avg |
+| :------ | ----------: | ----------------------: | ----------: | ----------: | -------------: |
+| Cluster |             |                         |             |             |                |
+| 0       |  669.714339 |             2349.602526 | 2056.077252 |  575.554168 |    3000.000000 |
+| 1       | 2848.865910 |             2973.126530 | 2990.370101 | 2617.873287 |    2997.371021 |
+| 2       |  469.643782 |             1306.301757 | 1486.395756 |  409.764679 |    3000.000000 |
+| 3       | 1289.097171 |             2817.152191 | 2804.645929 |  994.208332 |    2999.458496 |
+
+|                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(2).png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(1).png?raw=true) |
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dschool_avg.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Deducatioanal%20center_avg.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dlibrary_avg.png?raw=true)
 
 ## 6. Discussion and Conclusions
 
