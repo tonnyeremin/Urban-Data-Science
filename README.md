@@ -51,19 +51,25 @@ The step of cleaning data included a few steps: (1) Joining  by the name of the 
 | 26   | praha 1       | school | 50.090834 | 14.428853 |
 | 30   | praha 4       | school | 50.001684 | 14.413886 |
 
-Walking network data obtained from Open Street Map (OSM)The OSM data contains Prague road networks and surrounding connected roads, which are line geometries characterized by length. These can be used to construct a routable topology graph (directed, weighted and connected), which consists of nodes and edges, so that any well-known route search algorithm can be applied [3]. Pedestrian network for Prague contains 140 822 nodes and 204 575 links
+Walking network data obtained from Open Street Map (OSM)The OSM data contains Prague road networks and surrounding connected roads, which are line geometries characterized by length. These can be used to construct a routable topology graph (directed, weighted and connected), which consists of nodes and edges, so that any well-known route search algorithm can be applied [3]. Pedestrian network for Prague contains 140 822 nodes and 204 575 links. 
+
+All acquired and pre-proceeds data we store at IBM Cloud Object Storage. 
 
 
 
 ## 4. Methodology
 
+### 4.1 Network Analysis 
+
 The spatial frame of this study necessitates the use of point-based accessibility measures. The commonly used spatial units are administrative division and grid cell. As study area ranges from a city to a country, even the whole world, the type, shape and size of spatial unit differ in research purposes and there is no consensus over them.  In our study with use a bounding box of Prague as spatial frame. We can`t use smaller frames such as administrative divisions for our research because we have to deal with the boundary conditions. If children leave in own district and nearest POI is located in another. In this case very often parents of course decide to go to this nearest POI.
 
-In first step we converted OSM street network to graph objects.  We use Pandana framework for downloading and cleaning OSM road data. Under cleaning we mean removing  points that don’t represent actual intersections (hence are not nodes in the graph theory sense). 
+In first step we converted OSM street network to graph objects. For building graph we use Pandana framework. The main use case of Pandana is to perform an aggregation along the network - i.e. a buffer query. The api is designed to perform the aggregations for all nodes in the network at the same time in a multi-threaded fashion (using an underlying C library). Most walking-scale accessibility queries can be performed in well under a second, even for hundreds of thousands of nodes. [4]
+
+Under cleaning we mean removing  points that don’t represent actual intersections (hence are not nodes in the graph theory sense). 
 
 ![Pedestrian Network]()
 
-As the second step is to located POIs form previous step to network graph and calculate accessibility  matrix. Under accessibility  matrix we mean an array of distances to top 3 POIs  from the array of predefined POI acquired at data acquisition step.  With this matrix we can calculate average walking distance for every type of POIs: school, library, other children`s facilities. We get  140877 edges in total
+As the second step is to located POIs form previous step to network graph and calculate accessibility  matrix. Under accessibility  matrix we mean an array of distances to top 3 POIs  from the array of predefined POI acquired at data acquisition step.  As we want to research average values of accessibility we calculate average walking distance for every type of POIs: school, library, other children`s facilities. And store it to dataset. This dataset later will be used for clustering. We get  140877 edges in total
 
 |     id |   1_school |   2_school |   3_school | 1_educatioanal center | 2_educatioanal center | 3_educatioanal center |  1_library |   2_library |   3_library |    1_sport |    2_sport |    3_sport |      1 |      2 |      3 |
 | -----: | ---------: | ---------: | ---------: | --------------------: | --------------------: | --------------------: | ---------: | ----------: | ----------: | ---------: | ---------: | ---------: | -----: | -----: | -----: |
@@ -76,33 +82,68 @@ As the second step is to located POIs form previous step to network graph and ca
 
 ![Average distances]()
 
-We will use K-Means clustering algorithm.  This is a method of vector quantization, originally from signal processing, that is popular for cluster analysis in data mining. k-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells. k-Means minimizes within-cluster variances (squared Euclidean distances). Do determine the optimal number of clusters we use and Elbow method
+We will use K-Means clustering algorithm.  This is a method of vector quantization, originally from signal processing, that is popular for cluster analysis in data mining. k-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells. k-Means minimizes within-cluster variances (squared Euclidean distances). Do determine the optimal number of clusters we use and Elbow method. 
+
+The Elbow method is a heuristic method of interpretation and validation of consistency within cluster analysis designed to help finding the appropriate number of clusters in a dataset. It is often ambiguous and not very reliable, and hence other approaches for determining the number of clusters such as the Silhouette method are preferable.
+
+This method looks at the percentage of variance explained as a function of the number of clusters: One should choose a number of clusters so that adding another cluster doesn't give much better modeling of the data. More precisely, if one plots the percentage of variance explained by the clusters against the number of clusters, the first clusters will add much information (explain a lot of variance), but at some point the marginal gain will drop, giving an angle in the graph. The number of clusters is chosen at this point, hence the "elbow criterion". This "elbow" cannot always be unambiguously identified.[1] Percentage of variance explained is the ratio of the between-group variance to the total variance, also known as an F-test. A slight variation of this method plots the curvature of the within group variance.[2]
 
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Elbow%20(2).png?raw=true)
+
+### 4.2 Walkability Clusters
+
+As a result we have 4 clusters. We calculate avveages values of disctance, walkability core and time for exch cluster. Under reasonable time we mean time that children need to spend to walk 1300 meters. Calculated walkability score  for each type in each cluster. **SCORE = Actual Distance /1300**. As average walking speed we get 4 km/h [4].  
+
+|             Cluster No |    1 |    2 |    3 |    4 |
+| ---------------------: | ---: | ---: | ---: | ---: |
+|      Walkability Score |  1.3 |  2.3 |  1.0 |  1.7 |
+| Walking time (minutes) |      |      |      |      |
+|                Schools |    9 |   44 |    6 |   19 |
+|                  Hobby |   36 |   45 |   20 |   44 |
+|                Library |   30 |   45 |   23 |   44 |
+|       Sport facilities |    8 |   43 |    6 |   14 |
+|            Playgrounds |   45 |   45 |   45 |   45 |
+
+By redefining weights of edges on walking graph we can visualize cluster on the Prague`s map.
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_14.224437012000067_49.94190007000003_14.706787572000053_50.17742967400005.png?raw=true)
+
+Also we build walkability heat map for every type of our POIs.
+
+| Schools                                                      | Hobby                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dschool_avg.png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Deducatioanal%20center_avg.png?raw=true) |
+| **Sport**                                                    | **Library**                                                  |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dsport_avg.png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dlibrary_avg.png?raw=true) |
+| **Playgrounds**                                              |                                                              |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dplayground_avg.png?raw=true) |                                                              |
+
+Histograms of distances
+
+ 
+
+| Cluster 1 | Cluster 2 | Cluster 3 | Cluster 4 |
+| --------- | --------- | --------- | --------- |
+|           |           |           |           |
+|           |           |           |           |
+|           |           |           |           |
+|           |           |           |           |
 
 
 
 ## 5. Results
 
-![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_14.224437012000067_49.94190007000003_14.706787572000053_50.17742967400005.png?raw=true)
 
-|         |  school_avg | educatioanal center_avg | library_avg |   sport_avg | playground_avg |
-| :------ | ----------: | ----------------------: | ----------: | ----------: | -------------: |
-| Cluster |             |                         |             |             |                |
-| 0       |  669.714339 |             2349.602526 | 2056.077252 |  575.554168 |    3000.000000 |
-| 1       | 2848.865910 |             2973.126530 | 2990.370101 | 2617.873287 |    2997.371021 |
-| 2       |  469.643782 |             1306.301757 | 1486.395756 |  409.764679 |    3000.000000 |
-| 3       | 1289.097171 |             2817.152191 | 2804.645929 |  994.208332 |    2999.458496 |
 
-|                                                              |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(2).png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(1).png?raw=true) |
 
-![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dschool_avg.png?raw=true)
 
-![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Deducatioanal%20center_avg.png?raw=true)
 
-![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dlibrary_avg.png?raw=true)
+
+
+
+
+
+
 
 ## 6. Discussion and Conclusions
 
@@ -113,6 +154,8 @@ We will use K-Means clustering algorithm.  This is a method of vector quantizati
 1.  Living Streets (The Pedestrians’ Association)   [A LIVING STREETS REPORT](https://www.livingstreets.org.uk/media/3618/ls_school_run_report_web.pdf)
 2. [Criterion distances and correlates of active transportation to school in Belgian older adolescents.](https://ijbnpa.biomedcentral.com/articles/10.1186/1479-5868-7-87) Delfien Van Dyck, Ilse De Bourdeaudhuij, Greet Cardon & Benedicte Deforche 
 3. Naumann, S., & Kovalyov, M. Y. (2017). Pedestrian route search based on OpenStreetMap. In *Intelligent Transport Systems and Travel Behaviour (pp. 87-96)*. Cham: Springer.
+4. Pandana https://udst.github.io/pandana/introduction.html#introduction
+5.  THE MECHANICS OF WALKING IN CHILDREN  https://physoc.onlinelibrary.wiley.com/doi/pdf/10.1113/jphysiol.1983.sp014895 
 
 
 
