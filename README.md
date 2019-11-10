@@ -59,7 +59,33 @@ All acquired and pre-proceeds data we store at IBM Cloud Object Storage.
 
 ## 4. Methodology
 
-### 4.1 Network Analysis 
+### 4.1 Exploratory Data Analysis 
+
+#### Population
+
+ ![Ch_per_1000.png](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_per_1000.png?raw=true)
+
+
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_from_overall.png?raw=true)
+
+#### Points of interest with correlation to population
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Poi_total.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/School_1000.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Edu_1000.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Lib_1000.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Sport_1000.png?raw=true)
+
+![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Play_1000.png?raw=true)
+
+
+
+### 4.2 Network Analysis 
 
 The spatial frame of this study necessitates the use of point-based accessibility measures. The commonly used spatial units are administrative division and grid cell. As study area ranges from a city to a country, even the whole world, the type, shape and size of spatial unit differ in research purposes and there is no consensus over them.  In our study with use a bounding box of Prague as spatial frame. We can`t use smaller frames such as administrative divisions for our research because we have to deal with the boundary conditions. If children leave in own district and nearest POI is located in another. In this case very often parents of course decide to go to this nearest POI.
 
@@ -90,7 +116,7 @@ This method looks at the percentage of variance explained as a function of the n
 
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Elbow%20(2).png?raw=true)
 
-### 4.2 Walkability Clusters
+### 4.3 Walkability Clusters
 
 As a result we have 4 clusters. We calculate avveages values of disctance, walkability core and time for exch cluster. Under reasonable time we mean time that children need to spend to walk 1300 meters. Calculated walkability score  for each type in each cluster. **SCORE = Actual Distance /1300**. As average walking speed we get 4 km/h [4].  
 
