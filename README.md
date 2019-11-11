@@ -160,13 +160,11 @@ For modeling step we don`t interested in actual venue address but in coordinates
 
 Libraries' data was scrapped from [web](https://cs.wikipedia.org/wiki/M%C4%9Bstsk%C3%A1_knihovna_v_Praze). As data cleaning process we extracted addresses and districts name from original html page. For html parsing  we use  ***BeautifulSoup*** library. Addresses  was converted to  latitude and longitude with ArcGis api. The resulting data sets contains 41 libraries.
 
-##### Sport centers, clubs and play grounds.
+##### Sport centers, clubs and playgrounds.
 
 Data with sport sport facilities and playgrounds were retrieves for Prague Open Data Portal. For this data we perform the same steps as for previous data sets: address and district`s names extracting, converting  address to  latitude and longitude.
 
 We join all five data sets to a resulting one with 1623 rows. Data set is accessible on out [GitHub Repository](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/data/prague_pois.csv)
-
- ***Points of interest.*** 
 
 |      | District_Name | Type       | latitude  | longitude |
 | :--- | :------------ | :--------- | :-------- | :-------- |
@@ -184,13 +182,11 @@ Streets network data obtained from Open Street Map (OSM)The OSM data contains Pr
 
 ## 4. Exploratory Data Analysis 
 
-
-
-#### Population
+Total Prague`s population is approximately 1.3 millions of people. The highest values is at south districts - form 110K to 130K. All districts with population higher then mean are situated around historical center districts. The averages population of these districts is70 K people. This is expected. Most people in such types of cities as Prague leaves close to center but not inside it. Two largest districts in the north with population from 90 to 100K  shows us new development areas of Prague. 
 
 ![Prague](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Walking_access_Prague.png?raw=true)
 
- ![Ch_per_1000.png](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_per_1000.png?raw=true)
+Analyzing Prague's population  from other point of view, we can notice that distribution of children per 100 adults is not totally correlated with previous picture. In this diagram we can clearly see districts that a mainly liked by  families. The central districts and as suburbs has the lowest values. It is also  ![Ch_per_1000.png](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_per_1000.png?raw=true)
 
 
 
