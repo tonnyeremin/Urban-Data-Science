@@ -186,15 +186,23 @@ Total Prague`s population is approximately 1.3 millions of people. The highest v
 
 ![Prague](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Walking_access_Prague.png?raw=true)
 
-Analyzing Prague's population  from other point of view, we can notice that distribution of children per 100 adults is not totally correlated with previous picture. In this diagram we can clearly see districts that a mainly liked by  families. The central districts and as suburbs has the lowest values. It is also  ![Ch_per_1000.png](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_per_1000.png?raw=true)
+Analyzing Prague's population  from other point of view, we can notice that distribution of children per 1000 adults is correlated with previous picture. In this diagram we can clearly see districts that a mainly liked by  families. The central districts and as suburbs has the lowest values while districts around center but not far from it has average values, approximately form160 to 180 children per 1000 adults.![Ch_per_1000.png](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_per_1000.png?raw=true)
 
-
+Top 10 districts with highest children population are repeat top districts form previous pictures. Maximum we have 8 percent in Prague 4. 
 
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Ch_from_overall.png?raw=true)
 
+Points of interest is also concentrated around historical center. Distribution by districts is correlated with districts population. This is expected values.  We have approximately equal number of points in all districts from top 10 by population, with an anomaly height values at the south.
+
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Poi_total.png?raw=true)
 
+Total number of POIs doesn't show a full view of how good each district is for chidden. For us more interesting to look at how number of POIs is related to 1000 children. For example if we look at the histogram of  Schools/1000. We notice that Top values are not correlated with children`s population. We can see that Prague 1 have the  highest values but if we look at previous graphs we can see that by the percent of children Prague not even in top 10. From the other side Prague 4 have the highest values of population and it also have average values of Schools/1000.
+
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/School_1000.png?raw=true)
+
+The same picture we can see on next histograms. Central districts have the highest value  of POIs/1000 while suburbs have the lowest. From the one side this is because of low children's population in the city center, form the other cities are growing from it`s historical centers and concertation of schools and other facilities is often higher there.
+
+
 
 ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/Edu_1000.png?raw=true)
 
@@ -245,7 +253,7 @@ This method looks at the percentage of variance explained as a function of the n
 
 As a result we have 4 clusters. We calculate avveages values of disctance, walkability core and time for exch cluster. Under reasonable time we mean time that children need to spend to walk 1300 meters. Calculated walkability score  for each type in each cluster. **SCORE = Actual Distance /1300**. As average walking speed we get 4 km/h [4].  
 
-|             Cluster No |    1 |    2 |    3 |    4 |
+|             Cluster No |    0 |    1 |    2 |    3 |
 | ---------------------: | ---: | ---: | ---: | ---: |
 |      Walkability Score |  1.3 |  2.3 |  1.0 |  1.7 |
 | Walking time (minutes) |      |      |      |      |
@@ -269,24 +277,19 @@ Also we build walkability heat map for every type of our POIs.
 | **Playgrounds**                          |                                          |
 | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/map_pois_%7B%7Dplayground_avg.png?raw=true) |                                          |
 
-Histograms of distances
-
- 
-
-| Cluster 1 | Cluster 2 | Cluster 3 | Cluster 4 |
-| --------- | --------- | --------- | --------- |
-|           |           |           |           |
-|           |           |           |           |
-|           |           |           |           |
-|           |           |           |           |
-
-
-
 ## 5. Results
 
+As a result we have 4 clusters of walkability in Prague. Cluster 2 have optimal walkability score 1. It means that from every point inside this cluster children can reach all necessary POIs approximately in 15 minutes average. Schools are most reachable inside this cluster, which is very good result. From the other side Cluster 2 mainly covers central historical region and we know that in this districts population of children's is lower than at surrounding districts. The second cluster is number 0. It have walkability score around 1,3. schools and sport facilities can reached inside this cluster less then 10 minutes. This is very good results. 
 
+The lowest values of accessibility score inside this two cluster have libraries and hobby centers. It takes approximately 30 minutes in average. 
 
+| Cluster 0                                                    | Cluster 2                                                    |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(8).png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(7).png?raw=true) |
 
+The lowest value we get at cluster 3.  This cluster covers mainly small suburbs and district that are very far from center, mainly this is small villages. 
+
+Cluster 1 we decided to  count as noise values, because inside this cluster we mainly have parks, cemeteries and industrial areas.
 
 
 
