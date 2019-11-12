@@ -2,7 +2,7 @@
 
 ## 1. Abstract
 
-In this study we try to analyze walkability of the city for children from age 10 to 16.  We use a number of data sources and network analysis for building accessibility map of the selected city. With K nearest neighbor technique we perform clustering to select districts  with different walkability scores. We analyze this clutters in terms of walkability scores and POIs density and determine areas which need to be improved in terms of walking accessibility. 
+In this study we try to analyze walkability of the city for children from age 10 to 16.  We use a number of data sources and network analysis for building accessibility map of the selected city. With K nearest neighbor technique we perform clustering for selecting districts  with different walkability scores. We analyze this clutters in terms of walkability scores and POIs density and determine areas which need to be improved in terms of walking accessibility. 
 
 ### Keywords
 
@@ -17,11 +17,9 @@ Walking is an easy, free and healthy way for children to get to school or other 
 
 What we mean under pedestrian accessibility? For us it means the ability to reach particular everyday - life points of interest (POI) in a reasonable time. Under reasonable time we mean time that children need to spend to walk 1300 meters. This distance is recommended as reasonable for selected age range. [2]    Common POIs for children from 10 to 16 years are: schools, hobby and leisure time facilities, libraries, sport facilities and outdoor playgrounds. 
 
- The objectives of this study therefore are:   (1) Analyze current city`s infrastructure for children in terms of density population and density of POIs. (2) Build network of walkable routes. (3) Define clusters 
+ The objectives of this study therefore are:   (1) Analyze current city`s infrastructure for children in terms of density population and density of POIs. (2) Build network of walkable routes. (3) Define walkability clusters 
 
 With discussions on related literatures, this section has introduced the purpose and scope of this paper. **Study Area and Data** section goes into the study area and data sources. Methods are introduced in **Methods** section. **Results** section presents the results and illustrates how the results can be applied in planning practice. Conclusions and policy recommendations are followed in **Discussion and Conclusions** section. 
-
-
 
 ## 3. Study Area and Data
 
@@ -31,13 +29,13 @@ For our study we use such types of data as population and geo data of the select
 
 #### 3.1 Population
 
-As population dataset we use census data from Czech Statistical Office. The entire dataset of [Czech Statistical Office]( https://www.czso.cz) contains data of population, gender and age of  citizens of Czech Republic. Futures names are coded.
+As population dataset we use census data from Czech Statistical Office. The entire dataset of [Czech Statistical Office]( https://www.czso.cz) contains data of population, gender and age of  citizens of Czech Republic. Features names are coded.
 
 | typuz_naz | nazev              | uzcis | uzkod | u01     |
 | --------- | ------------------ | ----- | ----- | ------- |
 | kraj      | Hlavní město Praha | 100   | 3018  | 1268796 |
 
-As our study area is Prague, we are  only interested in population of the administrative districts with ***uzcis = 44***.  We  filtered data from original data set according to this parameter type, removed unnecessary columns and renamed left
+As our study area is Prague, we are  only interested in population of the administrative districts with ***uzcis = 44***.  We  filtered data from original data set according to this parameter, removed unnecessary columns and performed renaming.
 
 #### 3.2 Geo-shapes
 
@@ -226,20 +224,20 @@ In first step we converted OSM street network to graph objects. For building gra
 
 Under cleaning we mean removing  points that don’t represent actual intersections (hence are not nodes in the graph theory sense). 
 
-![Pedestrian Network]()
+![Pedestrian Network](https://i1.wp.com/geoffboeing.com/wp-content/uploads/2016/10/az-simplify-both.png)
+
+The graph of streets [6]
 
 As the second step is to located POIs form previous step to network graph and calculate accessibility  matrix. Under accessibility  matrix we mean an array of distances to top 3 POIs  from the array of predefined POI acquired at data acquisition step.  As we want to research average values of accessibility we calculate average walking distance for every type of POIs: school, library, other children`s facilities. And store it to dataset. This dataset later will be used for clustering. We get  140877 edges in total
 
-|     id |   1_school |   2_school |   3_school | 1_educatioanal center |
-| -----: | ---------: | ---------: | ---------: | --------------------: |
-|        |            |            |            |                       |
-| 172508 | 218.384003 | 452.865997 | 502.253998 |            124.689003 |
-| 172510 |  42.796001 | 326.665985 | 347.582001 |             50.898998 |
-| 172512 | 226.128006 | 290.959991 | 300.862000 |            421.157990 |
-| 172513 | 353.912994 | 393.170990 | 442.434998 |            627.351990 |
-| 172514 | 270.234985 | 443.700989 | 492.393005 |            711.030029 |
-
-![Average distances]()
+|     id |   1_school |   2_school |   3_school | 1_educational center |
+| -----: | ---------: | ---------: | ---------: | -------------------: |
+|        |            |            |            |                      |
+| 172508 | 218.384003 | 452.865997 | 502.253998 |           124.689003 |
+| 172510 |  42.796001 | 326.665985 | 347.582001 |            50.898998 |
+| 172512 | 226.128006 | 290.959991 | 300.862000 |           421.157990 |
+| 172513 | 353.912994 | 393.170990 | 442.434998 |           627.351990 |
+| 172514 | 270.234985 | 443.700989 | 492.393005 |           711.030029 |
 
 We will use K-Means clustering algorithm.  This is a method of vector quantization, originally from signal processing, that is popular for cluster analysis in data mining. k-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells. k-Means minimizes within-cluster variances (squared Euclidean distances). Do determine the optimal number of clusters we use and Elbow method. 
 
@@ -251,7 +249,7 @@ This method looks at the percentage of variance explained as a function of the n
 
 ### 5.2 Walkability Clusters
 
-As a result we have 4 clusters. We calculate avveages values of disctance, walkability core and time for exch cluster. Under reasonable time we mean time that children need to spend to walk 1300 meters. Calculated walkability score  for each type in each cluster. **SCORE = Actual Distance /1300**. As average walking speed we get 4 km/h [4].  
+As a result we have 4 clusters. We calculate averages values of distance, walkability core and time for each cluster. Under reasonable time we mean time that children need to spend to walk 1300 meters. Calculated walkability score  for each type in each cluster. **SCORE = Actual Distance /1300**. As average walking speed we get 4 km/h [4].  
 
 |             Cluster No |    0 |    1 |    2 |    3 |
 | ---------------------: | ---: | ---: | ---: | ---: |
@@ -279,29 +277,35 @@ Also we build walkability heat map for every type of our POIs.
 
 ## 5. Results
 
-As a result we have 4 clusters of walkability in Prague. Cluster 2 have optimal walkability score 1. It means that from every point inside this cluster children can reach all necessary POIs approximately in 15 minutes average. Schools are most reachable inside this cluster, which is very good result. From the other side Cluster 2 mainly covers central historical region and we know that in this districts population of children's is lower than at surrounding districts. The second cluster is number 0. It have walkability score around 1,3. schools and sport facilities can reached inside this cluster less then 10 minutes. This is very good results. 
+As a result we have 4 clusters of walkability in Prague. Cluster 2 have optimal walkability score 1. It means that from every point inside this cluster children can reach all necessary POIs approximately in 15 minutes average. Schools are most reachable inside this cluster, which is very good result. From the other side Cluster 2 mainly covers central historical district and we know that in this districts population of children's is lower than at surrounding districts. The second cluster is number 0. It have walkability score around 1,3. schools and sport facilities can reached inside this cluster less then 10 minutes. This is very good results. 
 
-The lowest values of accessibility score inside this two cluster have libraries and hobby centers. It takes approximately 30 minutes in average. 
+The lowest values of accessibility score inside this two cluster have libraries and hobby centers. It takes approximately 30 minutes of walking time in average. 
 
 | Cluster 0                                                    | Cluster 2                                                    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(8).png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(7).png?raw=true) |
 
-The lowest value we get at cluster 3.  This cluster covers mainly small suburbs and district that are very far from center, mainly this is small villages. 
+The lowest value we get at cluster 3.  This cluster covers mainly small suburbs and district which are very far from the city center, mainly this is small villages. Bit from the other inside cluster 3 is also situated a lot of new development projects 
 
-Cluster 1 we decided to  count as noise values, because inside this cluster we mainly have parks, cemeteries and industrial areas.
+Cluster 1 we decided to  count as noise values, because inside this cluster we mainly have parks, cemeteries and industrial areas in other words non-living areas.
 
+The most reachable POIs are schools, it is very good results because according to different studies the walking distance to schools has the most important value in measuring districts pedestrian accessibility.
 
+Also very good result we have with sport facilities. In all clusters except No 1 they can be reached in 10 of walking time in average.  
 
+The lowest accessibility score have hobby centers and libraries It is expectable results because  we have one venue of this type per district as usual.
 
-
-
+| Libraries                                                    | Educational and hobby centers                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(10).png?raw=true) | ![](https://github.com/tonnyeremin/Urban-Data-Science/blob/master/Images/cluster_hist%20(13).png?raw=true) |
 
 
 
 ## 7. Discussion and Conclusions
 
+In this study we analyzed walkability of Prague. Our focus mainly was on walking accessibility for children age 10-16. We decided common points interest for selected focus group and perform measuring of the shortest distances to all selected  POs. With unsupervised clustering algorithms we divided studying region into for 4 clusters. With methods of statistical analyzes we examined  the results of clustering.
 
+In future research we are planning to make more detailed analyze o f each type. We have to add weights to the street graph edges according to relief. Also we are interest to look at the pedestrian accessibility in terms not only shortest routes but safest too.
 
 ## 8. References
 
@@ -310,16 +314,7 @@ Cluster 1 we decided to  count as noise values, because inside this cluster we m
 3.  Naumann, S., & Kovalyov, M. Y. (2017). Pedestrian route search based on OpenStreetMap. In *Intelligent Transport Systems and Travel Behaviour (pp. 87-96)*. Cham: Springer.
 4.  Pandana https://udst.github.io/pandana/introduction.html#introduction
 5.  THE MECHANICS OF WALKING IN CHILDREN  https://physoc.onlinelibrary.wiley.com/doi/pdf/10.1113/jphysiol.1983.sp014895 
-
-
-
-
-
-
-
-
-
-
+6.  OSMnx: Python for Street Networks  https://geoffboeing.com/2016/11/osmnx-python-street-networks/ 
 
 
 
